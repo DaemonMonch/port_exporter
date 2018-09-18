@@ -20,14 +20,14 @@ class PortChecker(val config:Config,vertx: Vertx) :PortStatusRepos{
     fun check(name:String,addr:String) {
         val adr = addr.split(":")
         val ps = this.portStatus.computeIfAbsent(Addr(adr[0], adr[1].toInt()), { PortStatus(name, it) })
-        if(ps.checking())
+        if(ps.checking)
             return
         check(ps)
     }
     private fun check(portStatus: PortStatus) {
         val netSocket = portStatus.netSocket
         if(netSocket == null){
-            portStatus.connecting()
+            portStatus.checking()
             val addr = portStatus.addr
             this.netClient.connect(addr.port,addr.host,{
                 if(it.succeeded()){

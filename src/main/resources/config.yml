@@ -1,7 +1,4 @@
 targets:
  -
-  name: node
-  addr: localhost:9090
- -
-  name: java
-  addr: localhost:8080
+  name: ui
+  addr: 42.51.11.93:80
