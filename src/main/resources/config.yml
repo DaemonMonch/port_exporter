@@ -1,0 +1,7 @@
+targets:
+ -
+  name: node
+  addr: localhost:9090
+ -
+  name: java
+  addr: localhost:8080
