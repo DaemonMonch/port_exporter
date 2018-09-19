@@ -10,9 +10,13 @@
 
   `java -jar {buildName}.jar -c [config_path]`
 
+  [exporter url](http://localhost:9333/metrics)
+
 #### 配置文件格式(yml):
   ```
-  checkInterval:30000 #端口检查 间隔  单位 ms 默认10秒
+  checkInterval: 30000 #端口检查 间隔  单位 ms 默认10秒
+  host: 0.0.0.0
+  port: 9333
   targets:  #检查端口列表
    -
     name: name1    名称

@@ -48,6 +48,7 @@ fun createMetricsEndPoint(vertx: Vertx,host:String,port:Int) {
     var router = Router.router(vertx)
 
     router.route("/metrics").handler(MetricsHandler())
+    logger.info("exporter url http://${host}:$port/metrics ")
     server.requestHandler({router.accept(it)}).listen(port,host)
 }
 
