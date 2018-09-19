@@ -28,7 +28,8 @@
     name: name2    名称
     addr: localhost:8080
   ```
-
+  A configuration reload is triggered by sending a SIGHUP to the process
+  
 #### metrics
 ##### port_status
    - 值大于0 表示该端口 监听正常
