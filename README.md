@@ -2,15 +2,15 @@
 	prometheus  tcp 端口监控 exporter.用来检查目标端口是否正常打开及建立连接
 
 
-####build:
+#### build:
 
   `gradlew shadowJar`
 
-####run :
+#### run :
 
   `java -jar {buildName}.jar -c [config_path]`
 
-####配置文件格式(yml):
+#### 配置文件格式(yml):
   ```
   checkInterval:30000 #端口检查 间隔  单位 ms 默认10秒
   targets:  #检查端口列表
@@ -22,8 +22,8 @@
     addr: localhost:8080
   ```
 
-####metrics
-#####port_status
+#### metrics
+##### port_status
    值大于0 表示该端口 监听正常
 
 
