@@ -4,7 +4,7 @@ import io.vertx.core.net.NetSocket
 
 data class Addr(val host:String,val port:Int)
 
-class PortStatus(val name:String,val addr: Addr,var netSocket: NetSocket? = null) {
+class PortStatus(val name:String,val addr: Addr,@Volatile var netSocket: NetSocket? = null) {
     @Volatile private var status:Short = 0
     @Volatile  var checking = false
 

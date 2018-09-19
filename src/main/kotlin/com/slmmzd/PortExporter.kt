@@ -7,7 +7,7 @@ import io.prometheus.client.hotspot.DefaultExports
 import io.prometheus.client.vertx.MetricsHandler
 import io.vertx.ext.web.Router
 
-
+val logger = io.vertx.core.logging.LoggerFactory.getLogger("portExportKt")
 fun main(args: Array<String>) {
     val configPath = parseConfigPath(args)
     if(configPath == null){
@@ -68,7 +68,7 @@ fun writeToRegistry(portStatusRepos: PortStatusRepos) {
 
 fun parseConfigPath(args: Array<String>): String? {
     if (args.size < 2 || args[0] != "-c") {
-        println("need config file path -c")
+        logger.info("need config file path -c")
         return null
     }
 
