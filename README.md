@@ -1,6 +1,9 @@
 # port exporter
 	prometheus  tcp 端口监控 exporter.用来检查目标端口是否正常打开及建立连接
 
+#### required:
+
+  jdk 1.8+
 
 #### build:
 
