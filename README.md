@@ -3,7 +3,7 @@
 
 #### required:
 
-  jdk 1.8+
+   - jdk 1.8+
 
 #### build:
 
@@ -13,7 +13,7 @@
 
   `java -jar {buildName}.jar -c [config_path]`
 
-  [exporter url](http://localhost:9333/metrics)
+  exporter url: [http://localhost:9333/metrics](http://localhost:9333/metrics)
 
 #### 配置文件格式(yml):
   ```
@@ -31,7 +31,7 @@
 
 #### metrics
 ##### port_status
-   值大于0 表示该端口 监听正常
+   - 值大于0 表示该端口 监听正常
 
 
 
