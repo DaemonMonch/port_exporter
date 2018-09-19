@@ -1,5 +1,7 @@
 package com.slmmzd
 
+import com.slmmzd.config.Config
+import com.slmmzd.config.PeriodReloadConfig
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.core.json.JsonArray
@@ -7,7 +9,7 @@ import io.vertx.kotlin.core.net.NetClientOptions
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
-class PortChecker(val config:Config,vertx: Vertx) :PortStatusRepos{
+class PortChecker(val config: Config, vertx: Vertx) :PortStatusRepos{
     val logger = io.vertx.core.logging.LoggerFactory.getLogger(javaClass)
     private val portStatus = ConcurrentHashMap<Addr,PortStatus>()
     private val netClient =  vertx.createNetClient(NetClientOptions(connectTimeout = 5_000,logActivity = true))

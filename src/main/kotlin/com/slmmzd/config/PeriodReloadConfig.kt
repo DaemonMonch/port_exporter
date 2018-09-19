@@ -1,9 +1,8 @@
-package com.slmmzd
+package com.slmmzd.config
 
 import io.vertx.config.ConfigChange
 import io.vertx.config.ConfigRetriever
 import io.vertx.core.AsyncResult
-import io.vertx.core.Handler
 import io.vertx.core.Vertx
 import io.vertx.core.json.JsonObject
 import io.vertx.kotlin.config.ConfigRetrieverOptions
@@ -11,7 +10,7 @@ import io.vertx.kotlin.config.ConfigStoreOptions
 import io.vertx.kotlin.core.json.json
 import io.vertx.kotlin.core.json.obj
 
-class Config(val configPath:String,vertx:Vertx) {
+class PeriodReloadConfig(val configPath:String, vertx:Vertx) {
     private val fileStore = ConfigStoreOptions(
             type = "file",
             format = "yaml",

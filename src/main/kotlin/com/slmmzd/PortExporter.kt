@@ -1,10 +1,12 @@
 package com.slmmzd
 
+import com.slmmzd.config.SignalReloadConfig
 import io.vertx.core.Vertx
 import io.vertx.kotlin.core.VertxOptions
 import io.prometheus.client.Gauge
 import io.prometheus.client.hotspot.DefaultExports
 import io.prometheus.client.vertx.MetricsHandler
+import io.vertx.core.json.JsonObject
 import io.vertx.ext.web.Router
 
 val logger = io.vertx.core.logging.LoggerFactory.getLogger("portExportKt")
@@ -14,7 +16,7 @@ fun main(args: Array<String>) {
         return
     }
     val vertx = Vertx.vertx(VertxOptions(eventLoopPoolSize = 1,internalBlockingPoolSize = 2))
-    val config = Config(configPath,vertx)
+    val config = SignalReloadConfig(configPath, vertx)
     val checker = PortChecker(config,vertx)
     DefaultExports.initialize();
 
@@ -22,14 +24,8 @@ fun main(args: Array<String>) {
         if(it.succeeded()){
             val c = it.result()
             println(c)
-            checker.check(c)
-            writeToRegistry(checker)
-
-            val checkInterval = c.getLong("checkInterval",10_000)
-            vertx.setPeriodic(checkInterval,{
-                checker.check(c)
-                writeToRegistry(checker)
-            })
+            check(checker, c)
+            setupTask(vertx, checker, c)
 
 
             createMetricsEndPoint(vertx,c.getString("host","0.0.0.0"),c.getInteger("port",9333))
@@ -40,6 +36,26 @@ fun main(args: Array<String>) {
         }
     }
 
+    config.configChanged {
+        check(checker, it)
+        setupTask(vertx, checker, it)
+    }
+
+}
+
+@Volatile var lastTimerId:Long = 0
+
+private fun setupTask(vertx: Vertx, checker: PortChecker, config: JsonObject) {
+    val checkInterval = config.getLong("checkInterval", 10_000)
+    vertx.cancelTimer(lastTimerId)
+    lastTimerId = vertx.setPeriodic(checkInterval, {
+        check(checker, config)
+    })
+}
+
+private fun check(checker: PortChecker, config: JsonObject) {
+    checker.check(config)
+    writeToRegistry(checker)
 }
 
 fun createMetricsEndPoint(vertx: Vertx,host:String,port:Int) {
